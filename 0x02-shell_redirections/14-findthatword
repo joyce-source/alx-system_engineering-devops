@@ -1,0 +1,2 @@
+#!bin/bsah
+grep -i "root" /etc/passwd
