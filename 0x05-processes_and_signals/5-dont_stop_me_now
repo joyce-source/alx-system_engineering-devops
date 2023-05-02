@@ -6,6 +6,6 @@ id-$(pgrep "bash ./4-to_infinity_and_beyond" -f)
 
 #terminate th inf process
 if [ -n "$id"]
-ten
+then
 kill -ls "$id"
 fi
