@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#display current directory,In a list format
+
+for file in [!./]*
+do
+  if [ -f "$file" ]
+  then
+    name="${file#*-}"
+    echo "${name}"
+  fi
+done

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#displays the time for 12 hours and 59 minutes
+
+hour=0
+
+while [ $hour -lt 12 ]
+do
+  minute=1
+
+  while [ $minute -lt 60 ]
+  do
+    printf "%02d:%02d\n" $hour $minute
+
+    minute=$((minute+1))
+  done
+
+  hour=$((hour+1))
+done
+
+# Display the last minute
+printf "%02d:%02d\n" 12 59
