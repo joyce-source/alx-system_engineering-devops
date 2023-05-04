@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#TCP and UDP ports
+
+echo "Listening Ports:"
+
+# netstat command to show all listening sockets, and then using awk to filter only the columns containing port and PID information
+netstat -plnt | awk '{print $4, $7}' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+' | while read line; do
+    # getting the PID and program name from the output of lsof command, using awk to filter only the columns containing PID and program name
+    pid=$(lsof -i $line | awk '{print $2}')
+    pname=$(lsof -i $line | awk '{print $1}')
+    echo "Port: $line    PID: $pid    Program: $pname"
+done
