@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Get the IP address of each network interface that is UP and has an IPv4 address assigned
+
+ip addr show | grep 'inet ' | grep -v '127.0.0.1' | awk '{print $2}' | cut -d'/' -f1
