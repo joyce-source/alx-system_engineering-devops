@@ -3,7 +3,7 @@
 
 # Check if the script was run with an argument
 
-if [ -z "$1"]; then
+if [ $# -eq 0]; then
     echo "Usage: $0 {IP_ADDRESS}"
     exit 1
 fi
