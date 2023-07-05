@@ -1,6 +1,5 @@
-#!usr/bin/env bash
-
-# This script installs Nginx on an Ubuntu machine and configures it to meet the specified requirements
+#!/usr/bin/env bash
+#This script installs Nginx on an Ubuntu machine and configures it to meet the specified requirements
 
 # Update the package list
 apt-get update
