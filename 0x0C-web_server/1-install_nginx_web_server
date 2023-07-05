@@ -1,0 +1,31 @@
+#!usr/bin/env bash
+
+# This script installs Nginx on an Ubuntu machine and configures it to meet the specified requirements
+
+# Update the package list
+apt-get update
+
+# Install Nginx
+apt-get install -y nginx
+
+# Configure Nginx to listen on port 80
+echo "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+    server_name _;
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}" > /etc/nginx/sites-available/default
+
+# Create a simple HTML file with "Hello World!" content
+echo "<html>
+<head><title>Hello World!</title></head>
+<body><h1>Hello World!</h1></body>
+</html>" > /var/www/html/index.html
+
+# Restart Nginx
+service nginx restart
+
