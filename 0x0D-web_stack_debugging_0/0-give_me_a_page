@@ -7,7 +7,9 @@ sudo apt install net-tools curl lsof -y
 sudo service nginx status
 
 # Start Nginx if not running
-if [ $? -ne 0 ]; then
+if sudo service nginx status | grep -q "active (running)"; then
+    echo "Nginx is already running."
+else
     sudo service nginx start
 fi
 
@@ -22,6 +24,14 @@ if [ -n "$process_id" ]; then
     sudo kill "$process_id"
 fi
 
+# Check Apache status
+if sudo service apache2 status | grep -q "is running"; then
+    echo "Apache is running. Stopping Apache..."
+    sudo service apache2 stop
+else
+    echo "Apache is not running."
+fi
+
 # Configure Nginx
 sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
 
@@ -29,6 +39,17 @@ sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-availabl
 sudo service nginx restart
 
 # Verify Nginx status
-sudo service nginx status
-sudo netstat -tuln | grep 80
+if sudo service nginx status | grep -q "active (running)"; then
+    echo "Nginx is running and listening on port 80."
+else
+    echo "Failed to start Nginx."
+fi
 
+# Check if Apache is running again
+if sudo service apache2 status | grep -q "is running"; then
+    echo "Apache is still running."
+else
+    echo "Apache is not running."
+fi
+
+sudo netstat -tuln | grep 80
