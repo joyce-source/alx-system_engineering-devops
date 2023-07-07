@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # This scripts script installs and configures HAProxy on an Ubuntu machine
 # It distributes requests using a roundrobin algorithm to web-01 and web-02
 
