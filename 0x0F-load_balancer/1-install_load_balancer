@@ -1,33 +1,27 @@
 #!/usr/bin/env bash
-#Install and configure HAproxy on your lb-01 server.
+
+# This scripts script installs and configures HAProxy on an Ubuntu machine
+# It distributes requests using a roundrobin algorithm to web-01 and web-02
+
 # Install HAProxy
-apt-get update
-apt-get install -y haproxy
+sudo apt update
+sudo apt install -y haproxy
 
 # Configure HAProxy
-cat > /etc/haproxy/haproxy.cfg <<EOF
-global
-    daemon
-    maxconn 256
-
-defaults
-    mode http
-    timeout connect 5000ms
-    timeout client 50000ms
-    timeout server 50000ms
-
-frontend http_front
+sudo tee /etc/haproxy/haproxy.cfg > /dev/null <<EOF
+frontend web_frontend
     bind *:80
-    default_backend http_back
+    mode http
+    default_backend web_backend
 
-backend http_back
+backend web_backend
     balance roundrobin
-    server web-01 [STUDENT_ID]-web-01:80 check    server web-02 [STUDENT_ID]-web-02:80 check
+    server web-01 [STUDENT_ID]-web-01:80 check
+    server web-02 [STUDENT_ID]-web-02:80 check
 EOF
 
-# Enable HAProxy init script
-sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
+# Enable HAProxy service
+sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
 
-# Restart HAProxy
-service haproxy restart
-
+# Restart HAProxy service
+sudo service haproxy restart
