@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# Install necessary tools
+sudo apt update
+sudo apt install net-tools curl lsof -y
+
+# Check current Nginx status
+sudo service nginx status
+
+# Start Nginx if not running
+if [ $? -ne 0 ]; then
+    sudo service nginx start
+fi
+
+# Check process using port 8080
+sudo netstat -tuln | grep 8080
+
+# Find the process ID using port 8080
+process_id=$(sudo lsof -t -i :8080)
+
+# Stop the process using port 8080
+if [ -n "$process_id" ]; then
+    sudo kill "$process_id"
+fi
+
+# Configure Nginx
+sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+
+# Restart Nginx
+sudo service nginx restart
+
+# Verify Nginx status
+sudo service nginx status
+sudo netstat -tuln | grep 80
+
