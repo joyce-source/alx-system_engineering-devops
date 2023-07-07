@@ -1,0 +1,20 @@
+#!/bin/bash
+# This Bash script displays information about subdomains for a given domain
+domain=$1
+subdomain=$2
+
+get_record_info() {
+    local sub=$1
+    local record_type=$(dig $sub.$domain +short)
+    local destination=$(dig $sub.$domain | awk '/^;; ANSWER SECTION:/{getline; print $NF}')
+    echo "Your subdomain $sub points to your $sub server IP"
+}
+
+if [ -z "$subdomain" ]; then
+    get_record_info www
+    get_record_info web-01
+    get_record_info web-02
+else
+    get_record_info $subdomain
+fi
+
