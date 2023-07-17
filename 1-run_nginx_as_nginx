@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Update Nginx configuration file
+sed -i 's/user\s*[^;]*;/user nginx;/' /etc/nginx/nginx.conf
+
+# Modify Nginx default site configuration
+sed -i 's/listen\s*80;/listen 8080;/' /etc/nginx/sites-available/default
+
+# Restart Nginx service
+service nginx restart
+
