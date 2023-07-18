@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Edit the hosts file
+sudo sed -i '/^127\.0\.0\.1\s/ s/$/ 127.0.0.2/' /etc/hosts
+sudo sed -i '/facebook.com/d' /etc/hosts
+sudo sh -c 'echo "8.8.8.8 facebook.com" >> /etc/hosts'
