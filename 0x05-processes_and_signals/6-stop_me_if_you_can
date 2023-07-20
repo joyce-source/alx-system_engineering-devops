@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-#stops 4-to_infinity_and_beyond process without using kill or killall
-
-#treminate he infinate process
-pkill -15 "bash ./4-to_infinity_and_beyond" -f
