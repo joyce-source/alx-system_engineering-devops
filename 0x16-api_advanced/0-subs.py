@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""script defines a function to query and retrive subs for subreddit"""
 import requests
 
 def number_of_subscribers(subreddit):
