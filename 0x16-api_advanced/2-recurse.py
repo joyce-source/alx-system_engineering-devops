@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""script to retrieve tiltles of hoy posts for a subreddit."""
 import requests
 
 
